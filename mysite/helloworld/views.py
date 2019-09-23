@@ -7,17 +7,17 @@ from django.urls import reverse
 
 # Create your views here.
 
-
+# 测试第一个hello world能否正常显示
 def index(request):
     return HttpResponse("hello world")
 
-
+# 从数据库获取书本列表
 def detail(request):
     book_list = Book.objects.order_by('-pub_date')[:5]
     context = {'book_list': book_list}
     return render(request, 'helloworld/detail.html', context)
 
-
+# 增加书
 def addBook(request):
     if request.method == 'POST':
         temp_name = request.POST['name']
@@ -31,7 +31,7 @@ def addBook(request):
     # 重定向
     return HttpResponseRedirect(reverse('helloworld:detail'))
 
-
+# 删除书
 def deleteBook(request, book_id):
     bookID = book_id
     Book.objects.filter(id=bookID).delete()
